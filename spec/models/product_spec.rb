@@ -22,4 +22,16 @@ RSpec.describe Product, type: :model do
       expect(product).not_to be_valid
     end
   end
+
+  describe '#quantity' do
+    it 'reflects inventory adjustments' do
+      product = Product.create!(
+        name: 'Stapler',
+        price: 8000
+      )
+      product.inventory_adjustments.create!(quantity: 10)
+
+      expect(product.quantity).to eq(10)
+    end
+  end
 end
