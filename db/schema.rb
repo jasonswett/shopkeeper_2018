@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_25_191651) do
+ActiveRecord::Schema.define(version: 2018_06_25_195255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plperl"
   enable_extension "plperlu"
   enable_extension "plpgsql"
+
+  create_table "inventory_adjustments", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.integer "quantity", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_inventory_adjustments_on_product_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
@@ -25,4 +33,5 @@ ActiveRecord::Schema.define(version: 2018_06_25_191651) do
     t.index ["name"], name: "index_products_on_name", unique: true
   end
 
+  add_foreign_key "inventory_adjustments", "products"
 end
