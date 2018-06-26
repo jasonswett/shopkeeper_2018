@@ -37,14 +37,13 @@
             <th>Quantity</th>
           </tr>
           <tr>
-            <td><%= line_item_fields.text_field :product_id %></td>
+            <td><%= line_item_fields.select :product_id, @product_options, { include_blank: true } %></td>
             <td><%= line_item_fields.text_field :price %></td>
             <td><%= line_item_fields.text_field :quantity %></td>
           </tr>
         </table>
       <% end %>
     <% end %>
-
   </fieldset>
 
   <div class="actions">

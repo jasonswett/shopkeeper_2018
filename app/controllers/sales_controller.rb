@@ -18,6 +18,8 @@ class SalesController < ApplicationController
     @sale = Sale.new
     @sale.build_customer
     @sale.line_items = (0..NUMBER_OF_LINE_ITEMS_TO_SHOW_IN_FORM - 1).collect { @sale.line_items.build }
+
+    @product_options = Product.all.collect { |p| [p.name, p.id] }
   end
 
   # GET /sales/1/edit
