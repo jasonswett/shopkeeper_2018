@@ -15,6 +15,7 @@ class SalesController < ApplicationController
   # GET /sales/new
   def new
     @sale = Sale.new
+    @sale.line_items = (0..9).collect { @sale.line_items.build }
   end
 
   # GET /sales/1/edit
