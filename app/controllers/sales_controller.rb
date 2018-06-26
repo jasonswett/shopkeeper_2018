@@ -16,6 +16,7 @@ class SalesController < ApplicationController
   # GET /sales/new
   def new
     @sale = Sale.new
+    @sale.build_customer
     @sale.line_items = (0..NUMBER_OF_LINE_ITEMS_TO_SHOW_IN_FORM - 1).collect { @sale.line_items.build }
   end
 
@@ -76,7 +77,10 @@ class SalesController < ApplicationController
       end
 
       params.require(:sale).permit(
-        :customer_id,
+        customer_attributes: [
+          :name,
+          :email
+        ],
         line_items_attributes: [
           :product_id,
           :price,

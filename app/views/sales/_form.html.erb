@@ -11,27 +11,41 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :customer_id %>
-    <%= form.text_field :customer_id %>
-  </div>
-
-  <% @sale.line_items.each do |line_item| %>
-    <%= form.fields_for :line_items, line_item do |line_item_fields| %>
-      <table border>
-        <tr>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Quantity</th>
-        </tr>
-        <tr>
-          <td><%= line_item_fields.text_field :product_id %></td>
-          <td><%= line_item_fields.text_field :price %></td>
-          <td><%= line_item_fields.text_field :quantity %></td>
-        </tr>
-      </table>
-    <% end %>
+  <%= form.fields_for :customer do |customer_fields| %>
+    <fieldset>
+      <legend>Customer</legend>
+      <div class="field">
+        <%= customer_fields.label :name %>
+        <%= customer_fields.text_field :name %>
+      </div>
+      <div class="field">
+        <%= customer_fields.label :email %>
+        <%= customer_fields.text_field :email %>
+      </div>
+    </fieldset>
   <% end %>
+
+  <fieldset>
+    <legend>Products</legend>
+
+    <% @sale.line_items.each do |line_item| %>
+      <%= form.fields_for :line_items, line_item do |line_item_fields| %>
+        <table border>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+          </tr>
+          <tr>
+            <td><%= line_item_fields.text_field :product_id %></td>
+            <td><%= line_item_fields.text_field :price %></td>
+            <td><%= line_item_fields.text_field :quantity %></td>
+          </tr>
+        </table>
+      <% end %>
+    <% end %>
+
+  </fieldset>
 
   <div class="actions">
     <%= form.submit %>
