@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :customer do
-    name "MyString"
-    email "MyString"
+    name { Faker::String.random(10) }
+    email { Faker::Internet.email }
   end
 end

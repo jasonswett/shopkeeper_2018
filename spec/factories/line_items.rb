@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :line_item do
-    sale nil
-    product nil
-    price nil
-    quantity nil
+    sale
+    product
+    price 10000
+    quantity 1
   end
 end

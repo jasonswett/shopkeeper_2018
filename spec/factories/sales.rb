@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :sale do
-    customer nil
+    customer
   end
 end
