@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_25_195255) do
+ActiveRecord::Schema.define(version: 2018_06_26_132635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plperl"
   enable_extension "plperlu"
   enable_extension "plpgsql"
+
+  create_table "customers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_customers_on_email", unique: true
+  end
 
   create_table "inventory_adjustments", force: :cascade do |t|
     t.bigint "product_id", null: false
