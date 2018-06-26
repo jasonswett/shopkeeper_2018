@@ -11,40 +11,8 @@
     </div>
   <% end %>
 
-  <%= form.fields_for :customer do |customer_fields| %>
-    <fieldset>
-      <legend>Customer</legend>
-      <div class="field">
-        <%= customer_fields.label :name %>
-        <%= customer_fields.text_field :name %>
-      </div>
-      <div class="field">
-        <%= customer_fields.label :email %>
-        <%= customer_fields.text_field :email %>
-      </div>
-    </fieldset>
-  <% end %>
-
-  <fieldset>
-    <legend>Products</legend>
-
-    <% @sale.line_items.each do |line_item| %>
-      <%= form.fields_for :line_items, line_item do |line_item_fields| %>
-        <table border>
-          <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Quantity</th>
-          </tr>
-          <tr>
-            <td><%= line_item_fields.select :product_id, @product_options, { include_blank: true } %></td>
-            <td><%= line_item_fields.text_field :price %></td>
-            <td><%= line_item_fields.text_field :quantity %></td>
-          </tr>
-        </table>
-      <% end %>
-    <% end %>
-  </fieldset>
+  <%= render 'customer_form', form: form %>
+  <%= render 'product_form', form: form, product_options: @product_options %>
 
   <div class="actions">
     <%= form.submit %>

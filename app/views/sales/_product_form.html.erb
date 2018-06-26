@@ -1,0 +1,20 @@
+<fieldset>
+  <legend>Products</legend>
+
+  <% form.object.line_items.each do |line_item| %>
+    <%= form.fields_for :line_items, line_item do |line_item_fields| %>
+      <table border>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+        </tr>
+        <tr>
+          <td><%= line_item_fields.select :product_id, product_options, { include_blank: true } %></td>
+          <td><%= line_item_fields.text_field :price %></td>
+          <td><%= line_item_fields.text_field :quantity %></td>
+        </tr>
+      </table>
+    <% end %>
+  <% end %>
+</fieldset>
