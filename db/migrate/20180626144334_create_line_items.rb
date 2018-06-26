@@ -8,7 +8,5 @@ class CreateLineItems < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
-
-    add_index :line_items, [:sale_id, :product_id], unique: true
   end
 end

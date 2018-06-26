@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 2018_06_26_144334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_line_items_on_product_id"
-    t.index ["sale_id", "product_id"], name: "index_line_items_on_sale_id_and_product_id", unique: true
     t.index ["sale_id"], name: "index_line_items_on_sale_id"
   end
 
