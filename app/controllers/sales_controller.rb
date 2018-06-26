@@ -16,10 +16,7 @@ class SalesController < ApplicationController
   # GET /sales/new
   def new
     @sale = Sale.new
-    @sale.build_customer
-    NUMBER_OF_LINE_ITEMS_TO_SHOW_IN_FORM.times { @sale.line_items.build }
-
-    @product_options = Product.all.collect { |p| [p.name, p.id] }
+    prepare_sale_attributes
   end
 
   # GET /sales/1/edit
@@ -36,6 +33,7 @@ class SalesController < ApplicationController
         format.html { redirect_to @sale, notice: 'Sale was successfully created.' }
         format.json { render :show, status: :created, location: @sale }
       else
+        prepare_sale_attributes
         format.html { render :new }
         format.json { render json: @sale.errors, status: :unprocessable_entity }
       end
@@ -89,5 +87,11 @@ class SalesController < ApplicationController
           :quantity
         ]
       )
+    end
+
+    def prepare_sale_attributes
+      NUMBER_OF_LINE_ITEMS_TO_SHOW_IN_FORM.times { @sale.line_items.build }
+      @sale.build_customer
+      @product_options = Product.all.collect { |p| [p.name, p.id] }
     end
 end
