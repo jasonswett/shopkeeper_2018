@@ -34,4 +34,21 @@ RSpec.describe Product, type: :model do
       expect(product.quantity).to eq(10)
     end
   end
+
+  describe '#total_sales' do
+    it 'returns the total sales for that product' do
+      guitar = create(:product)
+      piano = create(:product)
+
+      create(
+        :sale,
+        line_items: [
+          create(:line_item, product: guitar, price: 200000),
+          create(:line_item, product: piano, price: 500000),
+        ]
+      )
+
+      expect(guitar.total_sales).to eq(200000)
+    end
+  end
 end
