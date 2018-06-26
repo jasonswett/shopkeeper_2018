@@ -70,6 +70,17 @@ class SalesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_params
-      params.require(:sale).permit(:customer_id)
+      params[:sale][:line_items_attributes] = params[:sale][:line_items_attributes].select do |index, line_item_params|
+        line_item_params[:product_id].present?
+      end
+
+      params.require(:sale).permit(
+        :customer_id,
+        line_items_attributes: [
+          :product_id,
+          :price,
+          :quantity
+        ]
+      )
     end
 end
