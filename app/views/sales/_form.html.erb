@@ -18,7 +18,7 @@
 
   <% @sale.line_items.each do |line_item| %>
     <%= form.fields_for :line_items, line_item do |line_item_fields| %>
-      <table>
+      <table border>
         <tr>
           <th>Product</th>
           <th>Price</th>
