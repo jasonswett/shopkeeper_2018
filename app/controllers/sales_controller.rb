@@ -1,5 +1,6 @@
 class SalesController < ApplicationController
   before_action :set_sale, only: [:show, :edit, :update, :destroy]
+  NUMBER_OF_LINE_ITEMS_TO_SHOW_IN_FORM = 6
 
   # GET /sales
   # GET /sales.json
@@ -15,7 +16,7 @@ class SalesController < ApplicationController
   # GET /sales/new
   def new
     @sale = Sale.new
-    @sale.line_items = (0..9).collect { @sale.line_items.build }
+    @sale.line_items = (0..NUMBER_OF_LINE_ITEMS_TO_SHOW_IN_FORM - 1).collect { @sale.line_items.build }
   end
 
   # GET /sales/1/edit
