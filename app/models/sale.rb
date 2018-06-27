@@ -6,4 +6,8 @@ class Sale < ApplicationRecord
   def total
     line_items.sum(&:total_price)
   end
+
+  def line_item_list
+    line_items.map { |line_item| line_item.product.name }.join(', ')
+  end
 end
