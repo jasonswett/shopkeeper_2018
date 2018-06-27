@@ -10,12 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_25_195255) do
+ActiveRecord::Schema.define(version: 2018_06_26_144334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plperl"
   enable_extension "plperlu"
   enable_extension "plpgsql"
+
+  create_table "customers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_customers_on_email", unique: true
+  end
 
   create_table "inventory_adjustments", force: :cascade do |t|
     t.bigint "product_id", null: false
@@ -23,6 +31,17 @@ ActiveRecord::Schema.define(version: 2018_06_25_195255) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_inventory_adjustments_on_product_id"
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.bigint "sale_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "price", null: false
+    t.integer "quantity", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_line_items_on_product_id"
+    t.index ["sale_id"], name: "index_line_items_on_sale_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -33,5 +52,15 @@ ActiveRecord::Schema.define(version: 2018_06_25_195255) do
     t.index ["name"], name: "index_products_on_name", unique: true
   end
 
+  create_table "sales", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_sales_on_customer_id"
+  end
+
   add_foreign_key "inventory_adjustments", "products"
+  add_foreign_key "line_items", "products"
+  add_foreign_key "line_items", "sales"
+  add_foreign_key "sales", "customers"
 end

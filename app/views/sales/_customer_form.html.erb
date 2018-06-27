@@ -1,0 +1,13 @@
+<%= form.fields_for :customer do |customer_fields| %>
+  <fieldset>
+    <legend>Customer</legend>
+    <div class="field">
+      <%= customer_fields.label :name %>
+      <%= customer_fields.text_field :name %>
+    </div>
+    <div class="field">
+      <%= customer_fields.label :email %>
+      <%= customer_fields.text_field :email %>
+    </div>
+  </fieldset>
+<% end %>
